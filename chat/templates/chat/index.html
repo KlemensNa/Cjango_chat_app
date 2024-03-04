@@ -6,6 +6,10 @@
     .page-content{
         padding: 150px 150px
     }
+
+    .time{
+        color: blue
+    }
 </style>
 
 <!-- Always shows a header, even in smaller screens. -->
@@ -13,7 +17,15 @@
     <header class="mdl-layout__header">
         <div class="mdl-layout__header-row">
             <!-- Title -->
-            <span class="mdl-layout-title">DjangoChat, Welcome {{request.user.first_name}}</span>
+            <span class="mdl-layout-title">
+                {% if request.user.is_authenticated %}
+                DjangoChat, Welcome {{request.user.first_name}}
+
+                {% else %}
+                Hey, Login to see your Chat
+
+                {% endif %}
+            </span>
             <!-- Add spacer, to align navigation to the right -->
             <div class="mdl-layout-spacer"></div>
             <!-- Navigation. We hide it in small screens. -->
@@ -50,6 +62,20 @@
                 </button>
             </form>
 
+            {% if request.user.is_authenticated %}
+            <div>
+                {% for message in messages %}
+                <div>
+                   <span class="time">[{{message.created_at}}]</span> {{message.author.first_name}}: <i>{{message.text}}</i>
+                </div>
+                {% endfor %}
+            </div>
+
+            {% else %}
+            <h1>Not logged in</h1>
+            <h3>Please click <a href="/login">here</a> to login and continue</h3>            
+
+            {% endif %}
 
         </div>
     </main>
