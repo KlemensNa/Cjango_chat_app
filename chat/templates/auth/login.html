@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<div class="container">
+    <h3>Hey, welcome to this Django_chat_app. Please login to use stay connected with your comrades</h1>
+
+    {% if wrongPassword %}
+    <p>Nutzername oder Password nicht korrekt</p>
+    {% endif %}
+
+    <form action="/login/" method="POST" class="formcontainer" >
+        {% csrf_token %}
+
+        <!-- hidden input to use redirection, set in indexlogin -->
+        <input type="hidden" name="redirect" value="{{ redirect }}">
+
+        <div class="mdl-textfield mdl-js-textfield">
+            <input class="mdl-textfield__input" type="text" id="sample1" name="loginName">
+            <label class="mdl-textfield__label" for="sample1" >Login Name</label>
+        </div>
+        <div class="mdl-textfield mdl-js-textfield">
+            <input class="mdl-textfield__input" type="text" id="sample1" name="loginPassword">
+            <label class="mdl-textfield__label" for="sample1" >Password</label>
+        </div>
+
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+            send
+        </button>
+    </form>
+</div>
+
+{% endblock %}

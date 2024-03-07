@@ -1,0 +1,29 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.formcontainer {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border: 2px solid rgba(0, 0, 0, 0.397);
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.336);
+    border-radius: 30px;
+}
+
+.mdl-textfield__label {
+    color: rgba(0, 0, 0, 0.719)
+}
+
+.page-content {
+padding: 150px 150px
+ }
+
+.time {
+    color: blue
+}
