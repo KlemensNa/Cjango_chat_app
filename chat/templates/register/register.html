@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<div class="container">
+    <h3>Hey, welcome to this Django_chat_app. Please register to create your Account</h1>
+    
+{% if accountAllreadyExists %}
+    <div>
+        Accountname with this Mail allready exists
+    </div>
+{% endif %}
+
+    <form action="/register/" method="POST" class="formcontainer" >
+        {% csrf_token %}
+
+        <!-- hidden input to use redirection, set in indexlogin -->
+        <input type="hidden" name="redirect" value="{{ redirect }}">
+
+        <div class="mdl-textfield mdl-js-textfield">
+            <input class="mdl-textfield__input" type="text" id="sample1" name="registerName">
+            <label class="mdl-textfield__label" for="sample1" >Register Name</label>
+        </div>
+        <div class="mdl-textfield mdl-js-textfield">
+            <input class="mdl-textfield__input" type="email" id="sample1" name="registerEmail" required>
+            <label class="mdl-textfield__label" for="sample1" >Email</label>
+        </div>
+        <div class="mdl-textfield mdl-js-textfield">
+            <input class="mdl-textfield__input" type="text" id="sample1" name="registerPassword">
+            <label class="mdl-textfield__label" for="sample1" >Password</label>
+        </div>
+
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+            send
+        </button>
+    </form>
+</div>
+
+{% endblock %}

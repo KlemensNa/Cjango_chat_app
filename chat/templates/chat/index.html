@@ -1,4 +1,3 @@
-
 <!-- Always shows a header, even in smaller screens. -->
 <!-- token muss mitgesendet werden, damit nur der Sender und Receiver die Nachricht lesen können  -->
 
@@ -6,31 +5,108 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <form action="/chat/" method="post">
-        {% csrf_token %}
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            {% comment %} input braucht namen um in views.py darauf zuzugreifen {% endcomment %}
-            <input class="mdl-textfield__input" name="textmessage" type="text" id="sample3">
-            <label class="mdl-textfield__label" for="sample3">Text...</label>
-        </div>
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-            send
-        </button>
-    </form>
+<script>
+    async function sendMessage(){
+        let fd = new FormData();
+        let token = '{{csrf_token}}';
+        addFrontendMessage(messagetext.value);
+        
+        fd.append("textmessage", messagetext.value);
+        fd.append("csrfmiddlewaretoken", token)
+        
+        try{
+            await fetch('/chat/', {
+                body: fd,
+                method: "POST"
+            })
+            document.getElementById("deleteMessage").remove();
+            addBackendMessage(messagetext.value);
+            console.log("succesfully sended message", fd)
+        }catch(e){
+            console.error("An error occured ", e)
+        }
+        
+    }
 
-    {% if request.user.is_authenticated %}
-    <div>
-        {% for message in messages %}
-        <div>
-            <span class="time">[{{message.created_at}}]</span> {{message.author.first_name}}: <i>{{message.text}}</i>
+    function addFrontendMessage(messagetext){
+        
+        let date = getDateInFormat();
+        messageContainer.innerHTML += `
+        <div class="grey" id="deleteMessage">
+            <span class="time grey">[${date}]</span> {{request.user.first_name}}: <i class="grey">${messagetext}</i>
         </div>
-        {% endfor %}
+        `
+    }
+
+
+    function addBackendMessage(messagetext){
+
+        let date = getDateInFormat();
+        messageContainer.innerHTML += `
+        <div id="deleteMessage">
+            <span class="time">[${date}]</span> {{request.user.first_name}}: <i>${messagetext}</i>
+        </div>
+        `
+    }
+
+
+    function getDateInFormat(){
+        let date = new Date();
+        let month = date.getMonth();
+        let day = date.getDate();
+        let year = date.getFullYear();
+        let newDate = getMonthName(month) + " " + day + ", " + year;
+        return newDate
+    }
+
+
+    function getMonthName(month){
+        const monthNames = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"];
+    
+        return monthNames[month]
+    }
+</script>
+
+<div id="mainContainer">
+    <div id="mainContainerLeft">
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>user.first_name</mat-card-title>
+            <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+          </mat-card-header>
     </div>
+    <div id="mainContainerRight">        
+    
+        {% if request.user.is_authenticated %}
+        <div id="messageContainer">
+            {% for message in messages %}
+            <div>
+                <span class="time">[{{message.created_at}}]</span> {{message.author.first_name}}: <i>{{message.text}}</i>
+            </div>
+            {% endfor %}
+        </div>
+    
+        {% else %}
+        <h1>Not logged in</h1>
+        <h3>Please click <a href="/login">here</a> to login and continue</h3>
+    
+        {% endif %}
 
-    {% else %}
-    <h1>Not logged in</h1>
-    <h3>Please click <a href="/login">here</a> to login and continue</h3>
+        <form onsubmit="sendMessage(); return false;" method="post" id="inputForm">
+            {% csrf_token %}
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                {% comment %} input braucht namen um in views.py darauf zuzugreifen {% endcomment %}
+                <input class="mdl-textfield__input" name="textmessage" type="text" id="messagetext">
+                <label class="mdl-textfield__label" for="sample3">Text...</label>
+            </div>
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                send
+            </button>
+        </form>
+    </div>
+</div>
 
-    {% endif %}
+    
 
 {% endblock %}
