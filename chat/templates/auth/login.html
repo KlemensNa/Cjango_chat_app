@@ -3,11 +3,9 @@
 
 
 <div class="container">
-    <h3>Hey, welcome to this Django_chat_app. Please login to use stay connected with your comrades</h1>
+    <h3>Hey, welcome to this Django_chat_app</h1>
 
-    {% if wrongPassword %}
-    <p>Nutzername oder Password nicht korrekt</p>
-    {% endif %}
+    
 
     <form action="/login/" method="POST" class="formcontainer" >
         {% csrf_token %}
@@ -25,9 +23,16 @@
         </div>
 
         <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-            send
+            Sign In
         </button>
+        {% if wrongPassword %}
+        <p class="red mt-16">username or password not correcr</p>
+        {% endif %}
     </form>
+    <div>
+        <a href="/register">Create</a> a new account to sign in.
+    </div>
+    
 </div>
 
 {% endblock %}

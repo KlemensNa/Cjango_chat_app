@@ -98,7 +98,21 @@
     <div id="mainContainerLeft">
         <div class="mainContainerLeftHeader">
             <img class="headerimg" src="../static/img/avatarSofia.png" alt="">
-            Welcome {{request.user.first_name}}</div>
+            Welcome {{request.user.first_name}}
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item>
+                  <mat-icon>dialpad</mat-icon>
+                  <span>Redial</span>
+                </button>
+                <form mat-menu-item action="/logout/">
+                    <button>ausloggen</button>
+                </form>
+              </mat-menu>
+            
+        </div>
         {% for user in userData %}
         <div class="userList">
             <div mat-card-avatar class="example-header-image"><img src="../static/img/avatarFrederick.png" alt=""></div>

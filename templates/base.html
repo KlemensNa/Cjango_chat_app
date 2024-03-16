@@ -21,11 +21,7 @@
                 <!-- Title -->
                 <span class="mdl-layout-title">
                     {% if request.user.is_authenticated %}
-                    DjangoChat, Welcome {{request.user.first_name}}
-    
-                    {% else %}
-                    Hey, Login to see your Chat
-    
+                    DjangoChat, Welcome {{request.user.first_name}}   
                     {% endif %}
                 </span>     
             </div>

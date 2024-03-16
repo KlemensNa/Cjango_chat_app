@@ -1,7 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from chat.models import Messages, Chat, userData
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
@@ -60,9 +60,13 @@ def register(request):
                                  last_name=request.POST.get('Lastname'), 
                                  email=request.POST.get('registerEmail'),
                                  password=request.POST.get('registerPassword'))
-        render(request, 'auth/login.html', {'redirect': redirect})
+        return render(request, 'auth/login.html', {'redirect': redirect})
         # else:
         #     # boolean für if_Abfrage im login.html    
         #     # redirect as variable for the next url --> given to the hidden input
         #     return render(request, 'auth/register.html', {'accountAllreadyExists': True, 'redirect': redirect})
     return render(request, 'register/register.html', {'redirect': redirect})
+
+def logoutUser(request):
+    logout(request)
+    return render(request, 'logout/logout.html')

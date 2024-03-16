@@ -3,7 +3,7 @@
 
 
 <div class="container">
-    <h3>Hey, welcome to this Django_chat_app. Please register to create your Account</h1>
+    <h3>Hey, create your Account to Login</h1>
     
 {% if accountAllreadyExists %}
     <div>
@@ -39,9 +39,12 @@
         </div>
 
         <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-            send
+            Sign Up
         </button>
     </form>
+    <div>
+         <a href="/login">Back</a> to Sign Up
+    </div>
 </div>
 
 {% endblock %}
