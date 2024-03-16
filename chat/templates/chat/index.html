@@ -6,91 +6,150 @@
 {% block content %}
 
 <script>
-    async function sendMessage(){
+    async function sendMessage() {
         let fd = new FormData();
         let token = '{{csrf_token}}';
         addFrontendMessage(messagetext.value);
-        
+        let backendMessage = messagetext.value;
+        messagetext.value = "";
         fd.append("textmessage", messagetext.value);
         fd.append("csrfmiddlewaretoken", token)
-        
-        try{
+
+        try {
             await fetch('/chat/', {
                 body: fd,
                 method: "POST"
             })
-            document.getElementById("deleteMessage").remove();
-            addBackendMessage(messagetext.value);
+            setTimeout(()=> {
+                document.getElementById("deleteMessage").remove();
+                addBackendMessage(backendMessage);                
+            }, 1000)           
+            
             console.log("succesfully sended message", fd)
-        }catch(e){
+        } catch (e) {
             console.error("An error occured ", e)
         }
-        
     }
 
-    function addFrontendMessage(messagetext){
-        
+    function addFrontendMessage(messagetext) {
+
         let date = getDateInFormat();
         messageContainer.innerHTML += `
-        <div class="grey" id="deleteMessage">
-            <span class="time grey">[${date}]</span> {{request.user.first_name}}: <i class="grey">${messagetext}</i>
+        <div class="message row-reverse" id="deleteMessage">
+            <div class="messageContainerImg"><img src="../static/img/avatarSofia.png" alt=""></div>
+            <div class="messageContainerMessage bubble-reverse">
+                <div class="messageUsername">{{request.user.first_name}}</div>
+                <div class="messageMessageTime">
+                    <div class="messageMessage">${messagetext}</div>
+                    <div class="messageTime">
+                        ${date}
+                        <div class="sendIcon"><img src="../static/img/check.svg" alt=""></div>
+                    </div>
+                </div>
+            </div>            
         </div>
         `
     }
 
 
-    function addBackendMessage(messagetext){
+    function addBackendMessage(messagetext) {
 
         let date = getDateInFormat();
         messageContainer.innerHTML += `
-        <div id="deleteMessage">
-            <span class="time">[${date}]</span> {{request.user.first_name}}: <i>${messagetext}</i>
+        <div class="message row-reverse">
+            <div class="messageContainerImg"><img src="../static/img/avatarSofia.png" alt=""></div>
+            <div class="messageContainerMessage bubble-reverse">
+                <div class="messageUsername">{{request.user.first_name}}</div>
+                <div class="messageMessageTime">
+                    <div class="messageMessage">${messagetext}</div>
+                    <div class="messageTime">
+                        ${date}
+                        <div class="sendIcon"><img src="../static/img/doublecheck.svg" alt=""></div>
+                    </div>
+                </div>
+            </div>
+            
         </div>
         `
     }
 
 
-    function getDateInFormat(){
+    function getDateInFormat() {
         let date = new Date();
         let month = date.getMonth();
         let day = date.getDate();
         let year = date.getFullYear();
-        let newDate = getMonthName(month) + " " + day + ", " + year;
+        let hour = date.getHours()
+        let minutes = date.getMinutes()
+        let newDate = hour + ":" + minutes
         return newDate
     }
 
 
-    function getMonthName(month){
+    function getMonthName(month) {
         const monthNames = ["January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"];
-    
+            "July", "August", "September", "October", "November", "December"];
+
         return monthNames[month]
     }
 </script>
 
 <div id="mainContainer">
     <div id="mainContainerLeft">
-        <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
-            <mat-card-title>user.first_name</mat-card-title>
-            <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-          </mat-card-header>
+        <div class="mainContainerLeftHeader">
+            <img class="headerimg" src="../static/img/avatarSofia.png" alt="">
+            Welcome {{request.user.first_name}}</div>
+        {% for user in userData %}
+        <div class="userList">
+            <div mat-card-avatar class="example-header-image"><img src="../static/img/avatarFrederick.png" alt=""></div>
+            <mat-card-title class="userListUsername">{{user.username}}</mat-card-title>
+        </div>
+        {% endfor %}
     </div>
-    <div id="mainContainerRight">        
-    
+    <div id="mainContainerRight">
+        <div class="mainContainerRightHeader">Hello</div>
         {% if request.user.is_authenticated %}
         <div id="messageContainer">
             {% for message in messages %}
-            <div>
-                <span class="time">[{{message.created_at}}]</span> {{message.author.first_name}}: <i>{{message.text}}</i>
+
+            {% if request.user.id == message.author.id %}
+
+            <div class="message row-reverse">
+                <div class="messageContainerImg"><img src="../static/img/avatarSofia.png" alt=""></div>
+                <div class="messageContainerMessage  bubble-reverse">
+                    <div class="messageUsername">{{message.author.first_name}}</div>
+                    <div class="messageMessageTime">
+                        <div class="messageMessage">{{message.text}}</div>
+                        <div class="messageTime">{{message.timestamp}} 
+                            <div class="sendIcon"><img src="../static/img/doublecheck.svg" alt=""></div>
+                        </div>
+                    </div>
+                </div>
+                
             </div>
+
+            {% else %}
+            
+            <div class="message">
+                <div class="messageContainerImg"><img src="../static/img/avatarSofia.png" alt=""></div>
+                <div class="messageContainerMessage">
+                    <div class="messageUsername">{{message.author.first_name}}</div>
+                    <div class="messageMessageTime">
+                        <div class="messageMessage">{{message.text}}</div>
+                        <div class="messageTime">{{message.timestamp}}</div>
+                    </div>
+                </div>
+            </div>
+
+            {% endif %}
+
             {% endfor %}
         </div>
-    
+
         {% else %}
         <h1>Not logged in</h1>
         <h3>Please click <a href="/login">here</a> to login and continue</h3>
-    
+
         {% endif %}
 
         <form onsubmit="sendMessage(); return false;" method="post" id="inputForm">
@@ -107,6 +166,6 @@
     </div>
 </div>
 
-    
+
 
 {% endblock %}

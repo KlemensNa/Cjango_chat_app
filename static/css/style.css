@@ -1,3 +1,7 @@
+body{
+    background-color: #ced7d8;
+}
+
 .mdl-layout__header{
     background-color: #316879;
     height: 30vh;
@@ -20,7 +24,8 @@ main{
     z-index: 10000 !important;
     width: 80%;
     display: flex;
-    border-radius: 30px;
+    border-radius: 30px;    
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .page-content{
@@ -29,12 +34,16 @@ main{
 }
 
 .container {
-    width: 100vw;
-    height: 100vh;
+    width: calc(100% - 80px);
+    height: calc(100% - 100px);
+    padding: 50px 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    gap:10%;
+    justify-content: flex-start;
+    background-color: white;
+    border-radius: 30px;
 }
 
 .formcontainer {
@@ -53,6 +62,11 @@ main{
 
 /* ChatContainer */
 #mainContainer{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     background-color: white;
@@ -61,27 +75,152 @@ main{
 }
 
 #mainContainerLeft{
-    width: calc(35% - 50px);
-    height: calc(100% - 50px);
-    padding: 25px
+    width: 35%;
+    height: 100%;
+    background-color:  #316879;
+}
+
+.mainContainerLeftHeader{
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    font-weight: 600;
+    font-size: 24px;
+    height: 80px;
+}
+
+.headerimg{
+    width: 40px;
+    height: 40px;
+}
+
+.userList{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 16px;
+    font-weight: 700;
+    margin: 25px;
+}
+
+.userListUsername{
+    font-size: 26px;
+    color: white;
 }
 
 #mainContainerRight{
-    width: calc(65% - 50px);
-    height: calc(100% - 50px);
-    padding: 25px;
+    width: 65%;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    background-color:#f47a60;
+    justify-content: flex-start;
+    background-color:#ced7d8;
+    overflow: auto;
+    position: relative;
+}
+
+.mainContainerRightHeader{
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    font-weight: 600;
+    font-size: 24px;
+    height: 80px;
+}
+
+#messageContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 16px;
+    margin: 25px;
+    width: calc(100% - 50px);
+    height: calc(100% - 80px);
+    overflow: auto;
+}
+
+
+.message{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+.row-reverse{    
+    flex-direction: row-reverse;
+}
+
+.messageContainerImg img{
+    width: 40px;
+    height: 40px;
+}
+
+.messageContainerMessage{
+    background-color: #316879;
+    border-radius: 15px 15px 15px 0;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.bubble-reverse{
+    border-radius: 15px 15px 0 15px !important;
+}
+
+.messageUsername{
+    font-size: 20px;
+    font-weight: 700;
+    color: #7fe7dc;
+}
+
+.messageMessageTime{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    gap: 8px;
+    color: #ced7d8
+}
+
+.messageMessage{
+    font-size: 20px;
+    font-weight: 500;
+    color: white;
+    word-break: break-all;
+}
+
+.messageTime{
+    display: flex;
+    align-items: end;
+    gap: 8px;
+}
+
+.sendIcon{
+    fill:#ced7d8
 }
 
 #inputForm{
-    width: 100%;
+    position: absolute;
+    bottom: 8px;
+    left: 12px;
+    right: 12px;
+    width: calc(100% - 24px);
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 16px;
+}
+
+#messagetext{
+    flex: 1;
 }
 
 .mdl-button{
@@ -90,10 +229,6 @@ main{
 
 .mdl-textfield{
     flex: 1
-}
-
-.time {
-    color: blue
 }
 
 .grey{

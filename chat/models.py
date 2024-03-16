@@ -1,6 +1,8 @@
 from datetime import date
 from django.conf import settings
 from django.db import models
+import time
+from datetime import datetime
 
 
 
@@ -26,7 +28,11 @@ class Messages(models.Model):
     chat = models.ForeignKey(Chat, on_delete=models.CASCADE, related_name='chat_message_set', default=None, blank=True, null=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='author_message_set')
     receiver = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='receiver_message_set')
+    t = time.localtime()
+    timestamp = time.strftime("%H:%M", t)
 
+class userData(models.Model):
+    username = models.CharField(max_length=30)
 
 
     
