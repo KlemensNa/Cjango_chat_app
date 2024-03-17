@@ -24,6 +24,7 @@ def index(request):
         return JsonResponse(returnedMessage, safe=False)
     chatMessage = Messages.objects.filter(chat__id = 1)
     names = User.objects.all()
+    print(names)
     return render(request, 'chat/index.html', {'messages' : chatMessage, 'userData': names })
 
     

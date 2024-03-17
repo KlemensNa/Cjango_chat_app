@@ -78,15 +78,21 @@ main{
     width: 35%;
     height: 100%;
     background-color:  white;
+    display: flex;
+    flex-direction: column;
+    background-color: #ced7d863;
+    /* background-color: #f47b60a2; */
 }
 
 .mainContainerLeftHeader{
     display: flex;
     gap: 12px;
     align-items: center;
-    justify-content: center;
-    background-color: #ced7d8;
+    justify-content: space-between;
+    background-color: #316879;
+    color: white;
     font-weight: 600;
+    padding: 0 16px;
     font-size: 24px;
     height: 80px;
     box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
@@ -97,6 +103,29 @@ main{
     height: 40px;
 }
 
+.userMenu{
+    position: relative;
+}
+
+.mainContainerLeftHeader .mdl-button{
+    background-color: unset !important;
+}
+
+.mainContainerLeftHeader .mdl-button:hover{
+    background-color: #31687957 !important;
+}
+
+.logoutBtn {
+    all: unset;
+    font-weight: 600;
+}
+
+.logoutForm{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .userList{
     display: flex;
     justify-content: flex-start;
@@ -105,6 +134,12 @@ main{
     font-weight: 700;
     padding: 15px 25px;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+}
+
+.userHeadline{
+    font-size: 26px;
+    padding: 30px 25px !important;
+    background-color: #f47b603a !important;
 }
 
 .userListUsername{
@@ -118,9 +153,10 @@ main{
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    background-color:#ced7d8;
+    background-color:white;
     overflow: auto;
     position: relative;
+    overflow: hidden;
 }
 
 .mainContainerRightHeader{
@@ -128,13 +164,14 @@ main{
     gap: 12px;
     align-items: center;
     justify-content: center;
-    background-color: white;
+    background-color: #316879;
+    border-left: 3px inset #ced7d8;
     font-weight: 600;
     font-size: 24px;
     min-height: 80px;
     height: 80px;
     box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
-
+    color: white;
     
 }
 
@@ -145,10 +182,12 @@ main{
     justify-content: flex-start;
     align-items: flex-start;
     gap: 16px;
-    margin: 25px;
+    padding: 25px;
     width: calc(100% - 50px);
     height: calc(100% - 80px);
     overflow: auto;
+    background-color: #f47b603a;
+    border-left: 3px inset #ced7d8;
 }
 
 
@@ -215,26 +254,36 @@ main{
 
 #inputForm{
     position: absolute;
-    bottom: 8px;
-    left: 12px;
-    right: 12px;
-    width: calc(100% - 24px);
+    bottom: 0px;
+    left: 3px;
+    right: 0px;
+    padding: 8px;
+    width: calc(100% - 19px);
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 16px;
+    background-color: #ced7d8;    
 }
 
 #messagetext{
-    flex: 1;
+    height: 36px;
+    background-color: white;
+    border-radius: 8px;
+}
+
+.mylabel{
+    top: 50% !important
 }
 
 .mdl-button{
     background-color: #316879 !important;
+    margin-right: 12px;
 }
 
 .mdl-textfield{
-    flex: 1
+    flex: 1;
+    margin-left: 12px;
 }
 
 .grey{

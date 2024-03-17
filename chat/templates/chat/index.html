@@ -20,11 +20,11 @@
                 body: fd,
                 method: "POST"
             })
-            setTimeout(()=> {
+            setTimeout(() => {
                 document.getElementById("deleteMessage").remove();
-                addBackendMessage(backendMessage);                
-            }, 1000)           
-            
+                addBackendMessage(backendMessage);
+            }, 1000)
+
             console.log("succesfully sended message", fd)
         } catch (e) {
             console.error("An error occured ", e)
@@ -97,31 +97,34 @@
 <div id="mainContainer">
     <div id="mainContainerLeft">
         <div class="mainContainerLeftHeader">
-            <img class="headerimg" src="../static/img/avatarSofia.png" alt="">
-            Welcome {{request.user.first_name}}
-            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-                <mat-icon>more_vert</mat-icon>
-              </button>
-              <mat-menu #menu="matMenu">
-                <button mat-menu-item>
-                  <mat-icon>dialpad</mat-icon>
-                  <span>Redial</span>
+            <div class="userInfo">
+                <img class="headerimg" src="../static/img/avatarSofia.png" alt="">
+                Welcome {{request.user.first_name}}
+            </div>
+            <div class="userMenu">
+                <button id="demo-menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon">
+                    <i class="material-icons">more_vert</i>
                 </button>
-                <form mat-menu-item action="/logout/">
-                    <button>ausloggen</button>
-                </form>
-              </mat-menu>
-            
+                <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+                    for="demo-menu-lower-right">
+                    <li class="mdl-menu__item">
+                        <form class="logoutForm" action="/logout/">
+                            <button class="logoutBtn">Logout</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
         </div>
+        <div class="userList userHeadline">All Users of this Channel</div>
         {% for user in userData %}
         <div class="userList">
             <div mat-card-avatar class="example-header-image"><img src="../static/img/avatarFrederick.png" alt=""></div>
-            <mat-card-title class="userListUsername">{{user.username}}</mat-card-title>
+            <mat-card-title class="userListUsername">{{user.first_name}} {{user.last_name}}</mat-card-title>
         </div>
         {% endfor %}
     </div>
     <div id="mainContainerRight">
-        <div class="mainContainerRightHeader">Hello</div>
+        <div class="mainContainerRightHeader">Chat with your friends and enjoy</div>
         {% if request.user.is_authenticated %}
         <div id="messageContainer">
             {% for message in messages %}
@@ -134,16 +137,16 @@
                     <div class="messageUsername">{{message.author.first_name}}</div>
                     <div class="messageMessageTime">
                         <div class="messageMessage">{{message.text}}</div>
-                        <div class="messageTime">{{message.timestamp}} 
+                        <div class="messageTime">{{message.timestamp}}
                             <div class="sendIcon"><img src="../static/img/doublecheck.svg" alt=""></div>
                         </div>
                     </div>
                 </div>
-                
+
             </div>
 
             {% else %}
-            
+
             <div class="message">
                 <div class="messageContainerImg"><img src="../static/img/avatarSofia.png" alt=""></div>
                 <div class="messageContainerMessage">
@@ -171,7 +174,7 @@
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 {% comment %} input braucht namen um in views.py darauf zuzugreifen {% endcomment %}
                 <input class="mdl-textfield__input" name="textmessage" type="text" id="messagetext">
-                <label class="mdl-textfield__label" for="sample3">Text...</label>
+                <label class="mdl-textfield__label mylabel" for="sample3">Text...</label>
             </div>
             <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
                 send
