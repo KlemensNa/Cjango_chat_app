@@ -9,12 +9,13 @@
     async function sendMessage() {
         let fd = new FormData();
         let token = '{{csrf_token}}';
+        let time = getDateInFormat();
         addFrontendMessage(messagetext.value);
-        let backendMessage = messagetext.value;
-        messagetext.value = "";
+        let backendMessage = messagetext.value;        
         fd.append("textmessage", messagetext.value);
-        fd.append("csrfmiddlewaretoken", token)
-
+        fd.append("csrfmiddlewaretoken", token);
+        
+        messagetext.value = "";
         try {
             await fetch('/chat/', {
                 body: fd,
@@ -115,10 +116,10 @@
                 </ul>
             </div>
         </div>
-        <div class="userList userHeadline">All Users of this Channel</div>
+        <div class="userList userHeadline">Channeluser</div>
         {% for user in userData %}
         <div class="userList">
-            <div mat-card-avatar class="example-header-image"><img src="../static/img/avatarFrederick.png" alt=""></div>
+            <div mat-card-avatar class="example-header-image"><img src="../static/img/avatarSofia.png" alt=""></div>
             <mat-card-title class="userListUsername">{{user.first_name}} {{user.last_name}}</mat-card-title>
         </div>
         {% endfor %}
@@ -137,7 +138,7 @@
                     <div class="messageUsername">{{message.author.first_name}}</div>
                     <div class="messageMessageTime">
                         <div class="messageMessage">{{message.text}}</div>
-                        <div class="messageTime">{{message.timestamp}}
+                        <div class="messageTime">{{message.created_at}}
                             <div class="sendIcon"><img src="../static/img/doublecheck.svg" alt=""></div>
                         </div>
                     </div>
@@ -153,7 +154,7 @@
                     <div class="messageUsername">{{message.author.first_name}}</div>
                     <div class="messageMessageTime">
                         <div class="messageMessage">{{message.text}}</div>
-                        <div class="messageTime">{{message.timestamp}}</div>
+                        <div class="messageTime">{{message.created_at}}</div>
                     </div>
                 </div>
             </div>
@@ -173,8 +174,8 @@
             {% csrf_token %}
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 {% comment %} input braucht namen um in views.py darauf zuzugreifen {% endcomment %}
-                <input class="mdl-textfield__input" name="textmessage" type="text" id="messagetext">
-                <label class="mdl-textfield__label mylabel" for="sample3">Text...</label>
+                <input class="mdl-textfield__input" name="textmessage" placeholder="Your message..." type="text" id="messagetext">
+                
             </div>
             <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
                 send

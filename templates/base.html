@@ -17,14 +17,10 @@
 <body>
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
         <header class="mdl-layout__header">
-            <div class="mdl-layout__header-row">
                 <!-- Title -->
-                <span class="mdl-layout-title">
-                    {% if request.user.is_authenticated %}
-                    DjangoChat, Welcome {{request.user.first_name}}   
-                    {% endif %}
+                <span class="mdl-layout-title onlyWhenResponsiv">
+                    Welcome to this One-Room-Chat-App
                 </span>     
-            </div>
         </header>
         <main class="mdl-layout__content">
             <div class="page-content">    

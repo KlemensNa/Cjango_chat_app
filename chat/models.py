@@ -1,8 +1,8 @@
-from datetime import date
+from datetime import date, datetime
 from django.conf import settings
 from django.db import models
-import time
-from datetime import datetime
+from django.utils import timezone
+
 
 
 
@@ -23,14 +23,13 @@ class Chat(models.Model):
     
 class Messages(models.Model):
     text = models.CharField(max_length=256)
-    created_at = models.DateField(default=date.today)
-    # chat = verknüpfe mit chatklasse
+    created_at = models.CharField(max_length=30, default ="")  
     chat = models.ForeignKey(Chat, on_delete=models.CASCADE, related_name='chat_message_set', default=None, blank=True, null=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='author_message_set')
     receiver = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='receiver_message_set')
-    t = time.localtime()
-    timestamp = time.strftime("%H:%M", t)
-
+    
+    
+    
 class userData(models.Model):
     username = models.CharField(max_length=30)
 

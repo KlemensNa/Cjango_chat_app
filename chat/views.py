@@ -1,3 +1,5 @@
+import datetime
+from django.utils import timezone
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from chat.models import Messages, Chat, userData
@@ -6,7 +8,11 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.core import serializers
+
 import json
+
+
+
 
 # if user is not logged in, go to /login/
 # request 
@@ -17,10 +23,13 @@ def index(request):
     if request.method == "POST":
         print("Received Data " + request.POST['textmessage'])
         myChat = Chat.objects.get(id=1)
-        newMessage = Messages.objects.create(text=request.POST['textmessage'], chat=myChat, author=request.user, receiver=request.user)
+        date = datetime.datetime.now()
+        time = str(date.hour) + ":" + str(date.minute)
+        print(date)
+        newMessage = Messages.objects.create(text=request.POST['textmessage'] ,chat=myChat, author=request.user, receiver=request.user, created_at = time)
         serialized_obj = serializers.serialize('json', [ newMessage, ])
         returnedMessage = json.loads(serialized_obj[1:-1])
-        print(returnedMessage)
+        print(newMessage)
         return JsonResponse(returnedMessage, safe=False)
     chatMessage = Messages.objects.filter(chat__id = 1)
     names = User.objects.all()
