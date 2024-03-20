@@ -58,8 +58,8 @@ def indexLogin(request):
         else:
             # boolean für if_Abfrage im login.html    
             # redirect as variable for the next url --> given to the hidden input
-            return render(request, 'auth/login.html', {'wrongPassword': True, 'redirect': redirect})
-    return render(request, 'auth/login.html', {'redirect': redirect})
+            return render(request, 'auth/login.html', {'wrongPassword': True, 'Greeting' : True, 'redirect': redirect})
+    return render(request, 'auth/login.html', {'redirect': redirect, 'Greeting' : True, 'SignIn' : False})
 
 def register(request):
     redirect = request.GET.get('next')
@@ -75,8 +75,8 @@ def register(request):
         #     # boolean für if_Abfrage im login.html    
         #     # redirect as variable for the next url --> given to the hidden input
         #     return render(request, 'auth/register.html', {'accountAllreadyExists': True, 'redirect': redirect})
-    return render(request, 'register/register.html', {'redirect': redirect})
+    return render(request, 'register/register.html', {'redirect': redirect, 'Greeting' : False, 'SignIn' : True})
 
 def logoutUser(request):
     logout(request)
-    return render(request, 'logout/logout.html')
+    return render(request, 'logout/logout.html', {'Greeting' : False, 'SignIn' : False})
