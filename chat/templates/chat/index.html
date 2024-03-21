@@ -1,8 +1,12 @@
+
+
 <!-- Always shows a header, even in smaller screens. -->
 <!-- token muss mitgesendet werden, damit nur der Sender und Receiver die Nachricht lesen können  -->
 
 
 {% extends "base.html" %}
+
+{% load static %}
 {% block content %}
 
 <script>
@@ -37,14 +41,14 @@
         let date = getDateInFormat();
         messageContainer.innerHTML += `
         <div class="message row-reverse" id="deleteMessage">
-            <div class="messageContainerImg"><img src="../static/img/avatarSofia.png" alt=""></div>
+            <div class="messageContainerImg"><img src="{% static '/img/avatarSofia.png' %}" alt=""></div>
             <div class="messageContainerMessage bubble-reverse">
                 <div class="messageUsername">{{request.user.first_name}}</div>
                 <div class="messageMessageTime">
                     <div class="messageMessage">${messagetext}</div>
                     <div class="messageTime">
                         ${date}
-                        <div class="sendIcon"><img src="../static/img/check.svg" alt=""></div>
+                        <div class="sendIcon"><img src="{% static '/img/check.svg' %}" alt=""></div>
                     </div>
                 </div>
             </div>            
@@ -58,14 +62,14 @@
         let date = getDateInFormat();
         messageContainer.innerHTML += `
         <div class="message row-reverse">
-            <div class="messageContainerImg"><img src="../static/img/avatarSofia.png" alt=""></div>
+            <div class="messageContainerImg"><img src="{% static '/img/avatarSofia.png' %}" alt=""></div>
             <div class="messageContainerMessage bubble-reverse">
                 <div class="messageUsername">{{request.user.first_name}}</div>
                 <div class="messageMessageTime">
                     <div class="messageMessage">${messagetext}</div>
                     <div class="messageTime">
                         ${date}
-                        <div class="sendIcon"><img src="../static/img/doublecheck.svg" alt=""></div>
+                        <div class="sendIcon"><img src="{% static '/img/doublecheck.svg' %}" alt=""></div>
                     </div>
                 </div>
             </div>
@@ -99,7 +103,7 @@
     <div id="mainContainerLeft">
         <div class="mainContainerLeftHeader">
             <div class="userInfo">
-                <img class="headerimg" src="../static/img/avatarSofia.png" alt="">
+                <img class="headerimg" src="{% static '/img/avatarSofia.png' %}" alt="">
                 Welcome {{request.user.first_name}}
             </div>
             <div class="userMenu">
@@ -119,7 +123,7 @@
         <div class="userList userHeadline">Channeluser</div>
         {% for user in userData %}
         <div class="userList">
-            <div mat-card-avatar class="example-header-image"><img src="../static/img/avatarSofia.png" alt=""></div>
+            <div mat-card-avatar class="example-header-image"><img src="{% static '/img/avatarSofia.png' %}" alt=""></div>
             <mat-card-title class="userListUsername">{{user.first_name}} {{user.last_name}}</mat-card-title>
         </div>
         {% endfor %}
@@ -133,13 +137,13 @@
             {% if request.user.id == message.author.id %}
 
             <div class="message row-reverse">
-                <div class="messageContainerImg"><img src="../static/img/avatarSofia.png" alt=""></div>
+                <div class="messageContainerImg"><img src="{% static '/img/avatarSofia.png' %}" alt=""></div>
                 <div class="messageContainerMessage  bubble-reverse">
                     <div class="messageUsername">{{message.author.first_name}}</div>
                     <div class="messageMessageTime">
                         <div class="messageMessage">{{message.text}}</div>
                         <div class="messageTime">{{message.created_at}}
-                            <div class="sendIcon"><img src="../static/img/doublecheck.svg" alt=""></div>
+                            <div class="sendIcon"><img src="{% static '/img/doublecheck.svg' %}" alt=""></div>
                         </div>
                     </div>
                 </div>
@@ -149,7 +153,7 @@
             {% else %}
 
             <div class="message">
-                <div class="messageContainerImg"><img src="../static/img/avatarSofia.png" alt=""></div>
+                <div class="messageContainerImg"><img src="{% static '/img/avatarSofia.png' %}" alt=""></div>
                 <div class="messageContainerMessage">
                     <div class="messageUsername">{{message.author.first_name}}</div>
                     <div class="messageMessageTime">

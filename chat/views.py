@@ -21,7 +21,7 @@ def index(request):
     """
     if request.method == "POST":
         myChat = Chat.objects.get(id=1)
-        time = getTime()
+        time = get_time()
         newMessage = Messages.objects.create(text=request.POST['textmessage'] ,chat=myChat, author=request.user, receiver=request.user, created_at = time)
         serialized_obj = serializers.serialize('json', [ newMessage, ])
         returnedMessage = json.loads(serialized_obj[1:-1])
@@ -32,7 +32,7 @@ def index(request):
 
     
 
-def renderChatPartner():
+def render_chatpartner():
     """_summary_
     get List of all signed users
     Returns:
@@ -43,7 +43,7 @@ def renderChatPartner():
     return allUsers
 
 
-def indexLogin(request):
+def index_login(request):
     
     """_summary_
     get "next" out of url e.g. url/next=/chat --> redirect = "/chat/"    
@@ -90,7 +90,7 @@ def register(request):
 
 
 
-def logoutUser(request):
+def logout_user(request):
     """_summary_
     view renders the logout page and gives a dictionary with variables which influence HTML-Code
     Returns:
@@ -101,7 +101,7 @@ def logoutUser(request):
 
 
 
-def getTime():
+def get_time():
     """_summary_
     this function return the actual time in "%H:%M"-format
     Returns:
