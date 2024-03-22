@@ -1,6 +1,22 @@
+
+
 {% extends "base.html" %}
 
 {% block content %}
+
+<script>
+    
+
+function toggleButton(){
+        
+    if(mypassword.value && myinput.value){
+        sendButton.disabled = false
+    } else {
+        sendButton.disabled = true
+    }
+    
+}
+</script>
 
 {% load static %}
 

@@ -339,6 +339,11 @@ header{
     padding-left: 8px;
 }
 
+.formcontainer .mdl-button[disabled]{
+    background-color: #ced7d8 !important;
+    color: grey !important;
+}
+
 .mylabel{
     top: 36% !important
 }
