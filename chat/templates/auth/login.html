@@ -1,21 +1,8 @@
-
-
 {% extends "base.html" %}
+
 {% block content %}
 
-<script>
-
-    function toggleButton(){
-        
-        if(mypassword.value && myinput.value){
-            sendButton.disabled = false
-        } else {
-            sendButton.disabled = true
-        }
-        
-    }
-</script>
-
+{% load static %}
 
 <div class="container">
     <h3>Welcome to this One-Room-Chat-App</h1>
