@@ -1,5 +1,20 @@
+
+
 {% extends "base.html" %}
 {% block content %}
+
+<script>
+
+    function toggleButton(){
+        
+        if(mypassword.value && myinput.value){
+            sendButton.disabled = false
+        } else {
+            sendButton.disabled = true
+        }
+        
+    }
+</script>
 
 
 <div class="container">
@@ -14,15 +29,15 @@
         <input type="hidden" name="redirect" value="{{ redirect }}">
 
         <div class="mdl-textfield mdl-js-textfield">
-            <input class="mdl-textfield__input" type="text" id="sample1" name="loginName">
-            <label class="mdl-textfield__label" for="sample1" >Login Name</label>
+            <input class="mdl-textfield__input" type="text" id="myinput" name="loginName" onkeyup="toggleButton()">
+            <label class="mdl-textfield__label" for="sample2" >Username</label>
         </div>
         <div class="mdl-textfield mdl-js-textfield">
-            <input class="mdl-textfield__input" type="text" id="sample1" name="loginPassword">
+            <input class="mdl-textfield__input" type="text" id="mypassword" name="loginPassword" onkeyup="toggleButton()">
             <label class="mdl-textfield__label" for="sample1" >Password</label>
         </div>
 
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+        <button id="sendButton" disabled class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
             Sign In
         </button>
         {% if wrongPassword %}

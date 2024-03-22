@@ -97,6 +97,15 @@
 
         return monthNames[month]
     }
+
+    function checkText(){
+        if(messagetext.value){
+            messageButton.disabled = false
+        } else {
+            messageButton.disabled = true
+        }
+    }
+
 </script>
 
 <div id="mainContainer">
@@ -178,10 +187,10 @@
             {% csrf_token %}
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 {% comment %} input braucht namen um in views.py darauf zuzugreifen {% endcomment %}
-                <input class="mdl-textfield__input" name="textmessage" placeholder="Your message..." type="text" id="messagetext">
+                <input class="mdl-textfield__input" name="textmessage" placeholder="Your message..." type="text" id="messagetext" onkeyup="checkText()">
                 
             </div>
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+            <button disabled id="messageButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
                 send
             </button>
         </form>
